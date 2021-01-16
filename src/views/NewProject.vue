@@ -84,15 +84,16 @@
                 //background: #00BFA6;
             },
             submitted: function() {
-                var newStory = this.writeStory(this.storyTitle, this.storyContent);
-                var storyID = newStory.key;
+                let newStory = this.writeStory(this.storyTitle, this.storyContent);
+                let storyID = newStory.key;
                 this.addPlotPoint(storyID, "Cersei Marries Night King", "Cementing Lannister-White Walker alliance.")
                 alert("Submitted");
             },
-            writeStory: function(title, content) {
+            writeStory: function(title, description) {
                 return firebase.database().ref('stories').push({
                     title: title,
-                    content: content
+                    description: description,
+                    date: Date.now()
                 });
             },
             addPlotPoint: function(storyID, title, description) {
