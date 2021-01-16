@@ -4,12 +4,12 @@
             fixed
             color="rgb(255, 255, 255)"
         )
-            btn.home-button.title(onclick="window.location.href='/'") WritHub
-            btn.menu-buttons(onclick="window.location.href='/new'") Start New Project
-            btn.menu-buttons(onclick="window.location.href='/browse'") Community Projects
-            btn.menu-buttons(onclick="window.location.href='/lounge'") Writer's Lounge
+            a.home-button.title(href="/") WritHub
+            a.menu-buttons(href="/new") Start New Project
+            a.menu-buttons(href="/browse") Community Projects
+            a.menu-buttons(href="/lounge") Writer's Lounge
             v-divider
-            google-signin-btn( @click="onSignIn" )
+            google-signin-btn()
 </template>
 
 <script>
@@ -27,6 +27,7 @@
 <style>
     .custom-nav {
         height: 71px !important;
+        z-index: 10 !important;
     }
     .v-toolbar__content {
         height: 71px !important;
@@ -37,11 +38,12 @@
 </style>
 
 <style scoped>
-    btn {
+    a {
         cursor: pointer;
         transition: 0.1s;
+        text-decoration: none;
     }
-    btn:hover {
+    a:hover {
         background-color: #7069691f;
     }
 

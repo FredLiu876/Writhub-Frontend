@@ -128,7 +128,7 @@
     }
     .landing-image {
         position: relative;
-        top: 16%;
+        top: 20%;
     }
     .set-vh {
         height: 100%;
