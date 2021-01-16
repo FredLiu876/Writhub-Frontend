@@ -4,10 +4,10 @@
             fixed
             color="rgb(255, 255, 255)"
         )
-            btn.home-button.title(href="/") WritHub
-            btn.menu-buttons() Start New Project
-            btn.menu-buttons() Community Projects
-            btn.menu-buttons() Writer's Lounge
+            btn.home-button.title(onclick="window.location.href='/'") WritHub
+            btn.menu-buttons(onclick="window.location.href='/new'") Start New Project
+            btn.menu-buttons(onclick="window.location.href='/browse'") Community Projects
+            btn.menu-buttons(onclick="window.location.href='/lounge'") Writer's Lounge
             v-divider
             google-signin-btn( @click="onSignIn" )
 </template>
