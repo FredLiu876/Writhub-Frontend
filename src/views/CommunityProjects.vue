@@ -6,37 +6,89 @@
         v-row.set-vh(
         )
             v-col.set-vh(
+                lg="2"
                 cols="1"
             )
             v-col.set-vh(
-                cols="10"
+                cols="8"
             )
                 .initial-height
                     span.title Community Projects
-                .display-cards
-                    .project-cards
-                        
-
+                    .display-cards(
+                        v-for="(row, index) in cardInfos"
+                        :key="index"
+                    )
+                        ProjectCard(
+                            v-for="(card, i) in row"
+                            :key="i"
+                            :name="card.name"
+                            :description="card.description"
+                            :text="card.text"
+                            :coverArt="card.coverArt"
+                        )
+                    .bottom
 </template>
 
 <script>
+    import ProjectCard from "@/components/ProjectCard.vue"
     export default {
         name: "NewProject",
-        components: {},
         data: () => {
             return {
                 height: window.innerHeight,
-                width: window.innerWidth
+                width: window.innerWidth,
+                show: false,
+                cardInfos: [
+                    [
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        },
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        },
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        }
+                    ],
+                    [
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        },
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        },
+                        {
+                            name: "Project Name",
+                            description: "Project Description",
+                            text: "Story Text. Lorem ipsum blah blah blah.",
+                            coverArt: "CoverArt.jpg"
+                        }
+                    ]
+                ]
             }
+        },
+        components: {
+            ProjectCard
         },
         methods: {
             getDimensions: function() {
                 this.height = window.innerHeight
                 this.width = window.innerWidth
-                let sheet = document.querySelector('.form-sheet')
-                this.imageTopOffset = sheet.getBoundingClientRect().top - 183
-                this.imageLeftOffset = sheet.getBoundingClientRect().right - 600
-                //background: #00BFA6;
             }
         }
     }

@@ -17,40 +17,49 @@
                 )
                 div.initial-height
                     span.title Start Your Project
-                    v-sheet.form-sheet(
-                        color="#F1F3F4"
-                        elevation="1"
-                        height="710"
-                    )
-                        .the-form(style="margin-top: 52px; text-align: left;")
-                            .form-labels(
-                                style="display: inline-block;"
-                            ) Let's call this project:
-                            v-input
-                                input.textareas(
-                                    placeholder="Title"
-                                    style="height:32px"
-                                )
-                            .form-labels(
-                                style="display: inline-block;"
-                            ) Description
-                            v-input(height="92")
-                                textarea.textareas(style="height: 92px !important;")
-                            .form-labels(style="display: flex; justify-content: space-between")
-                                div(style="max-width: 200px;")
-                                    span Upload Cover Art
-                                    label.input-file-label(for="file" style="margin-top: 16px;")
-                                    input.input-file#file(type="file" @change="setFilename")
-                                    span(style="margin-top: 8px; display: block; font-size: 12px; text-overflow: hidden;") {{ filename }}
-                                div
-                    div(style="margin-top: 52px; padding-bottom: 208px; display: flex; justify-content: space-between;")
-                        hr
-                        .buttons(style="display:flex; justify-content: space-between; width: 300px;")
-                            a.cancel-button(href="/") Cancel
-                            button.create-button() Create Project
+                    form(@submit.prevent="submitted")
+                        v-sheet.form-sheet(
+                            color="#F1F3F4"
+                            elevation="1"
+                            height="710"
+                        )
+                            .the-form(style="margin-top: 52px; text-align: left;")
+                                .form-labels(
+                                    style="display: inline-block;"
+                                ) Let's call this project:
+                                v-input
+                                    input.textareas(
+                                        placeholder="Title"
+                                        v-model="storyTitle"
+                                        style="height:32px"
+                                    )
+                                .form-labels(
+                                    style="display: inline-block;"
+                                ) Description
+                                v-input(height="92")
+                                    textarea.textareas(
+                                        style="height: 92px !important;"
+                                        v-model="storyContent"
+                                    )
+                                .form-labels(style="display: flex; justify-content: space-between")
+                                    div(style="max-width: 200px;")
+                                        span Upload Cover Art
+                                        label.input-file-label(for="file" style="margin-top: 16px;")
+                                        input.input-file#file(type="file" @change="setFilename")
+                                        span(style="margin-top: 8px; display: block; font-size: 12px; text-overflow: hidden;") {{ filename }}
+                                    div
+                        div(style="margin-top: 52px; display: flex; justify-content: space-between;")
+                            hr
+                            .buttons(style="display:flex; justify-content: space-between; width: 300px;")
+                                a.cancel-button(href="/") Cancel
+                                button.create-button(type="submit") Create Project
+                        .bottom
 </template>
 
 <script>
+    import firebase from "firebase/app";
+    require('firebase/database')
+
     export default {
         name: "NewProject",
         components: {},
@@ -58,6 +67,8 @@
             return {
                 height: window.innerHeight,
                 width: window.innerWidth,
+                storyTitle: "",
+                storyContent: "",
                 imageTopOffset: window.innerHeight * 0.3 + 25.6 + 52 - 188,
                 imageLeftOffset: window.innerWidth-(window.innerWidth * 0.08333333) - window.innerWidth * 0.833333333 * 0.54,
                 filename: ""
@@ -71,6 +82,24 @@
                 this.imageTopOffset = sheet.getBoundingClientRect().top - 183
                 this.imageLeftOffset = sheet.getBoundingClientRect().right - 600
                 //background: #00BFA6;
+            },
+            submitted: function() {
+                var newStory = this.writeStory(this.storyTitle, this.storyContent);
+                var storyID = newStory.key;
+                this.addPlotPoint(storyID, "Cersei Marries Night King", "Cementing Lannister-White Walker alliance.")
+                alert("Submitted");
+            },
+            writeStory: function(title, content) {
+                return firebase.database().ref('stories').push({
+                    title: title,
+                    content: content
+                });
+            },
+            addPlotPoint: function(storyID, title, description) {
+                return firebase.database().ref('stories/' + storyID + '/plot-points').push({
+                    title: title,
+                    description: description
+                });
             },
             setFilename: function(file) {
                 console.log(file)
