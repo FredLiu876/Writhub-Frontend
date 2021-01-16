@@ -184,19 +184,6 @@
     .input-file {
         display: none;
     }
-
-    .body-text {
-        display: block;
-        position: relative;
-        top: 32%;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 26px;
-        text-align: left;
-        color: rgba(9, 36, 51, 0.8);
-    }
     
     .set-vh {
         height: 100%;
