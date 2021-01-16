@@ -10,7 +10,8 @@
                 cols="1"
             )
             v-col.set-vh(
-                cols="8"
+                lg="8"
+                cols="10"
             )
                 .initial-height
                     span.title Community Projects
