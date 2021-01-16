@@ -6,7 +6,7 @@
         )
             a.home-button.title(href="/") WritHub
             a.menu-buttons(href="/new") Start New Project
-            a.menu-buttons(href="/browse") Community Projects
+            a.menu-buttons(href="/community") Community Projects
             a.menu-buttons(href="/lounge") Writer's Lounge
             v-divider
             google-signin-btn()

@@ -38,4 +38,8 @@ export default {
         }
     }
 }
+
+.bottom {
+    padding-bottom: 156px;
+}
 </style>

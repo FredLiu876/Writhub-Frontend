@@ -48,11 +48,12 @@
                                         input.input-file#file(type="file" @change="setFilename")
                                         span(style="margin-top: 8px; display: block; font-size: 12px; text-overflow: hidden;") {{ filename }}
                                     div
-                        div(style="margin-top: 52px; padding-bottom: 208px; display: flex; justify-content: space-between;")
+                        div(style="margin-top: 52px; display: flex; justify-content: space-between;")
                             hr
-                            .buttons(style="display:flex; justify-content: space-between; width: 40%;")
+                            .buttons(style="display:flex; justify-content: space-between; width: 300px;")
                                 a.cancel-button(href="/") Cancel
                                 button.create-button(type="submit") Create Project
+                        .bottom
 </template>
 
 <script>
@@ -212,19 +213,6 @@
     }
     .input-file {
         display: none;
-    }
-
-    .body-text {
-        display: block;
-        position: relative;
-        top: 32%;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 26px;
-        text-align: left;
-        color: rgba(9, 36, 51, 0.8);
     }
     
     .set-vh {
