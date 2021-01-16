@@ -3,6 +3,7 @@ import VueGoogleApi from 'vue-google-api'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NewProject from '../views/NewProject.vue'
+import CommunityProjects from '../views/CommunityProjects.vue'
 import Landing from '../views/Landing.vue'
 
 const config = {
@@ -29,6 +30,11 @@ const routes = [
     path: '/new',
     name: 'NewProject',
     component: NewProject
+  },
+  {
+    path: '/community',
+    name: 'CommunityProjects',
+    component: CommunityProjects
   }
 ]
 

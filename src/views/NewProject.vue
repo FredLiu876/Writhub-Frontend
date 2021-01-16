@@ -45,7 +45,7 @@
                                 div
                     div(style="margin-top: 52px; padding-bottom: 208px; display: flex; justify-content: space-between;")
                         hr
-                        .buttons(style="display:flex; justify-content: space-between; width: 40%;")
+                        .buttons(style="display:flex; justify-content: space-between; width: 300px;")
                             a.cancel-button(href="/") Cancel
                             button.create-button() Create Project
 </template>
