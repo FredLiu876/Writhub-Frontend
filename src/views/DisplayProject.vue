@@ -5,9 +5,11 @@
     )
         v-row.set-vh
             v-col(
+                lg="2"
                 cols="1"
             )
             v-col.set-vh(
+                lg="8"
                 cols="10"
             )
                 .initial-height
