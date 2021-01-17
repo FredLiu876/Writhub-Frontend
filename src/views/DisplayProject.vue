@@ -41,12 +41,14 @@
                                         :coverArt="card.coverArt"
                                     )
                     .bottom
-                    h1 TEST {{ $route.params.projectID }}
 </template>
 
 <script>
     import ProjectHead from "@/components/ProjectHead.vue"
     import ProjectCard from "@/components/ProjectCard.vue"
+    import firebase from "firebase/app";
+    require('firebase/database')
+
     export default {
         name: "DisplayProject",
         components: {
@@ -107,7 +109,16 @@
             getDimensions: function() {
                 this.width = window.innerWidth
                 this.height = window.innerHeight
+            },
+            loadPage: function(v) {
+                v.projectInfo.name = this.$route.params.projectName
+                firebase.database().ref('stories/' + this.$route.params.projectID).on("value", function(snap) {
+                    v.projectInfo.description = snap.val().description;
+                });
             }
+        },
+        beforeMount() {
+            this.loadPage(this)
         }
     }
 </script>
