@@ -49,17 +49,11 @@
 </template>
 
 <script>
-    import ProjectHead2 from "@/components/ProjectHead2.vue"
-    import ProjectCard from "@/components/ProjectCard.vue"
     import firebase from "firebase/app";
     require('firebase/database')
 
     export default {
         name: "InsertEdit",
-        components: {
-            ProjectHead2,
-            ProjectCard
-        },
         data: () => {
             return {
                 width: window.innerWidth,
