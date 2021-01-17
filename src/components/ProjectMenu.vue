@@ -1,16 +1,8 @@
 <template lang="pug">
     div
-        span.title {{ name }}
-        v-img.project-image(
-            :src="require('@/assets/' + coverArt)"
-            height="200"
-        )
-        span.project-description Description
-        .align-items
-            span.description-text {{ description }}
-            .middle-align
-                .right-align
-                    btn.contribute-button CONTRIBUTE TO THIS PROJECT
+        v-tabs
+            v-tab Main
+            v-tab Side Stories
 </template>
 
 <script>
