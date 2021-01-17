@@ -39,12 +39,12 @@ const routes = [
         component: CommunityProjects
     },
     {
-        path: '/project/:projectName',
+        path: '/project/:projectName/:projectID',
         name: 'DisplayProject',
         component: DisplayProject
     },
     {
-        path: '/project/:projectName/edit',
+        path: '/project/:projectName/:projectID/edit',
         name: 'InsertEdit',
         component: InsertEdit
     }
