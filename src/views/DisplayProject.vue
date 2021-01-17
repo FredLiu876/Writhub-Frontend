@@ -19,20 +19,22 @@
                         :coverArt="projectInfo.coverArt"
                     )
                     .margin67
-                    ProjectMenu(
-
-                    )
+                    v-tabs(v-model="tab")
+                        v-tab Main
+                        v-tab Side Stories
+                    v-tabs-items(v-model="tab")
+                        v-card.main-card(
+                            flat
+                        ) {{ projectInfo.text }}
                     .bottom
 </template>
 
 <script>
     import ProjectHead from "@/components/ProjectHead.vue"
-    import ProjectMenu from "@/components/ProjectMenu.vue"
     export default {
         name: "DisplayProject",
         components: {
-            ProjectHead,
-            ProjectMenu
+            ProjectHead
         },
         data: () => {
             return {
@@ -41,6 +43,7 @@
                 projectInfo: {
                     name: "Project Name",
                     description: "Project Description",
+                    text: "Lorem Ipsum Blah Blah Blah.",
                     coverArt: "CoverArt.jpg"
                 }
             }
@@ -61,6 +64,10 @@
     }
     .margin-67 {
         margin-top: 67px;
+    }
+    .main-text {
+        padding-top: 48px;
+        padding-left: 65px;
     }
     .set-vh {
         height: 100%;

@@ -1,8 +1,7 @@
 <template lang="pug">
     div
-        v-tabs
-            v-tab Main
-            v-tab Side Stories
+        
+        
 </template>
 
 <script>
