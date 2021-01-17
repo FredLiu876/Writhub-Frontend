@@ -82,14 +82,13 @@
     
     .display-cards {
         width: 100%;
-        margin-top: 56px;
         display: flex;
         flex-wrap: wrap;
     }
 
     .project-cards {
         width: calc((100% - 82px) / 3);
-        margin: 10px;
+        margin: 56px 10px 0px 10px;
     }
     .set-vh {
         height: 100%;

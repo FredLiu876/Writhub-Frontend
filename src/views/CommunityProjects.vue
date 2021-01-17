@@ -107,13 +107,12 @@
     .display-cards {
         width: 100%;
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
     }
 
     .project-cards {
         width: calc((100% - 82px) / 3);
-        margin-top: 56px;
+        margin: 56px 10px 0px 10px;
     }
 
     .set-vh {
