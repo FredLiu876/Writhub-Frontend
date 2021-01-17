@@ -4,7 +4,7 @@
             fixed
             color="rgb(255, 255, 255)"
         )
-            a.home-button.title(href="/") WritHub
+            a.home-button.title(href="/home") WritHub
             a.menu-buttons(href="/new") Start New Project
             a.menu-buttons(href="/community") Community Projects
             a.menu-buttons(href="/lounge") Writer's Lounge

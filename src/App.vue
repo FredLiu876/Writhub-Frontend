@@ -42,4 +42,12 @@ export default {
 .bottom {
     padding-bottom: 156px;
 }
+
+a {
+    cursor: pointer;
+}
+
+btn {
+    cursor: pointer;
+}
 </style>

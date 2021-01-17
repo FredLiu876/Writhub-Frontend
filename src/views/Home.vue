@@ -1,87 +1,101 @@
 <template lang="pug">
-  div(
-    :style="{ height: this.height + 'px', width: this.width + 'px' }"
-    v-resize="getDimensions"
-  )
-    v-row.set-vh(
-      v-if="this.width >= 960"
+    div(
+        :style="{ height: this.height + 'px', width: this.width + 'px'}"
+        v-resize="getDimensions"
     )
-      v-col(
-        md="1"
-        sm="2"
-        cols="1"
-      )
-      v-col(
-        md="3"
-        sm="8"
-        cols="10"
-        offset-md="0"
-        offset="2"
-      )
-        span.title My Projects
-        span.ul()
-          li(v-for="item in items" :key="item.key") {{ item.title }} <br> {{ item.description }}
+        v-row.set-vh
+            v-col.set-vh(
+                lg="2"
+                cols="1"
+            )
+            v-col.set-vh(
+                lg="8"
+                cols="10"
+            )
+                .initial-height
+                    span.title My Projects
+                    .display-cards(
+                        v-for="(item, index) in items"
+                        :key="index"
+                    )
+                        ProjectCard(
+                            :key="index"
+                            :name="item.title"
+                            :description="item.description"
+                            :text="item.description"
+                            :coverArt="item.coverArt"
+                        )
+                    .bottom
 </template>
 
 <script>
-  import firebase from "firebase/app";
-  require('firebase/database')
+    import ProjectCard from "@/components/ProjectCard.vue"
+    import firebase from "firebase/app";
+    require('firebase/database')
 
-  export default {
-    name: 'Home',
-    components: {
-      
-    },
-    data: () => {
-      return {
-        height: window.innerHeight,
-        width: window.innerWidth,
-        items: []
-      }
-    },
-    methods: {
-      getDimensions: function() {
-        this.height = window.innerHeight;
-        this.width = window.innerWidth;
-      },
-      loadPage: function(v) {
-        firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
-          v.items = [];
-          snap.forEach(function(data) {
-            v.items.push({ key: data.key, title: data.val().title, description: data.val().description});
-          });
-        });
-      },
-    },
-    beforeMount() {
-      this.loadPage(this);
+    export default {
+        name: 'Home',
+        components: {
+            ProjectCard
+        },
+        data: () => {
+            return {
+                height: window.innerHeight,
+                width: window.innerWidth,
+                items: []
+            }
+        },
+        methods: {
+            getDimensions: function() {
+                this.height = window.innerHeight;
+                this.width = window.innerWidth;
+            },
+            loadPage: function(v) {
+                firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
+                    v.items = [];
+                    snap.forEach(function(data) {
+                        v.items.push({ key: data.key, title: data.val().title, description: data.val().description, coverArt: "CoverArt.jpg"});
+                    });
+                });
+            },
+        },
+        beforeMount() {
+          this.loadPage(this);
+        },
     }
-  }
 </script>
 
 <style scoped>
-  .title {
-    display: block;
-    position: relative;
-    top: 24%;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 50px;
-    line-height: 66px;
-    letter-spacing: 1px;
-    color: #092433;
-    text-align: left;
-  }
-  .ul {
-    display: block;
-    position: relative;
-    top: 24%;
-  }
-  .set-vh {
-    height: 100%;
-  }
-  .set-50 {
-    height: 50%;
-  }
+    .initial-height {
+        position: relative;
+        top: 30%;
+    }
+
+    .title {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 26px;
+        color: #091133;
+        text-align: left;
+    }
+    
+    .display-cards {
+        width: 100%;
+        margin-top: 56px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .project-cards {
+        width: calc((100% - 82px) / 3);
+    }
+    .set-vh {
+        height: 100%;
+    }
+    .set-50 {
+        height: 50%;
+    }
 </style>
