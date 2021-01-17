@@ -44,6 +44,7 @@
         border-top: solid 4px  #00BFA6;
     }
     .project-description {
+        text-align: left;
         display: block;
         margin-top: 55px;
         font-family: Roboto;
@@ -73,7 +74,7 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: right;
+        justify-content: flex-end;
     }
     .contribute-button {
         padding: 28px 14px;
@@ -81,7 +82,7 @@
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
-        font-size: 24px;
+        font-size: 18px;
         line-height: 36px;
         display: flex;
         align-items: center;
@@ -95,5 +96,6 @@
         display: flex;
         justify-content: space-between;
         margin-top: 48px;
+        text-align: left;
     }
 </style>
