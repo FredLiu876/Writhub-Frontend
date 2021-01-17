@@ -17,62 +17,29 @@
                     span.title Community Projects
                     .display-cards
                         ProjectCard.project-cards(
-                            v-for="(card, i) in cardInfos"
-                            :key="i"
-                            :name="card.name"
-                            :description="card.description"
-                            :text="card.text"
-                            :coverArt="card.coverArt"
+                            v-for="(item, index) in items"
+                            :key="index"
+                            :id="item.key"
+                            :name="item.title"
+                            :description="item.description"
+                            :text="item.description"
+                            :coverArt="item.coverArt"
                         )
                     .bottom
 </template>
 
 <script>
     import ProjectCard from "@/components/ProjectCard.vue"
+    import firebase from "firebase/app";
+    require('firebase/database')
+    
     export default {
         name: "CommunityProjects",
         data: () => {
             return {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                cardInfos: [
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    }
-                ]
+                items: []
             }
         },
         components: {
@@ -82,8 +49,19 @@
             getDimensions: function() {
                 this.height = window.innerHeight
                 this.width = window.innerWidth
-            }
-        }
+            },
+            loadPage: function(v) {
+                firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
+                    v.items = [];
+                    snap.forEach(function(data) {
+                        v.items.push({ key: data.key, title: data.val().title, description: data.val().description, coverArt: "CoverArt.jpg"});
+                    });
+                });
+            },
+        },
+        beforeMount() {
+          this.loadPage(this);
+        },
     }
 </script>
 
