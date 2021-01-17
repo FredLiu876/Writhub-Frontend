@@ -24,7 +24,11 @@
                             hr
                             .buttons(style="display:flex; justify-content: space-between; width: 300px;")
                                 a.cancel-button(href="/") Cancel
-                                button.create-button(type="submit") Submit Changes
+                                button.create-button(
+                                    type="submit"
+                                    :disabled="storyContent==''"
+                                    :style="{ backgroundColor: storyContent=='' ? 'rgba(0, 191, 166, 0.3)' : '#00BFA6' }"
+                                ) Submit Changes
                     .bottom
 </template>
 
@@ -143,7 +147,7 @@
         background: rgba(0, 191, 166, 0.3);
         color: #FFFFFF;
     }
-    .create-button:hover {
+    .create-button:not(:disabled):hover {
         text-decoration: underline;
     }
 

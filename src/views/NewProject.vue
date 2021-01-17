@@ -52,7 +52,11 @@
                             hr
                             .buttons(style="display:flex; justify-content: space-between; width: 300px;")
                                 a.cancel-button(href="/") Cancel
-                                button.create-button(type="submit") Create Project
+                                button.create-button(
+                                    type="submit"
+                                    :disabled="storyContent=='' || storyTitle=='' || filename==''"
+                                    :style="{ backgroundColor: storyContent=='' || storyTitle=='' || filename=='' ? 'rgba(0, 191, 166, 0.3)' : '#00BFA6' }"
+                                ) Create Project
                         .bottom
 </template>
 
@@ -81,7 +85,6 @@
                 let sheet = document.querySelector('.form-sheet')
                 this.imageTopOffset = sheet.getBoundingClientRect().top - 183
                 this.imageLeftOffset = sheet.getBoundingClientRect().right - 600
-                //background: #00BFA6;
             },
             submitted: function() {
                 let newStory = this.writeStory(this.storyTitle, this.storyContent);
@@ -145,7 +148,7 @@
         background: rgba(0, 191, 166, 0.3);
         color: #FFFFFF;
     }
-    .create-button:hover {
+    .create-button:not(:disabled):hover {
         text-decoration: underline;
     }
 

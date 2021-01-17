@@ -47,7 +47,12 @@ a {
     cursor: pointer;
 }
 
-btn {
+button {
     cursor: pointer;
 }
+
+button:disabled {
+    cursor: default;
+}
+
 </style>
