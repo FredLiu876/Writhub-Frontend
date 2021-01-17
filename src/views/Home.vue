@@ -14,11 +14,9 @@
             )
                 .initial-height
                     span.title My Projects
-                    .display-cards(
-                        v-for="(item, index) in items"
-                        :key="index"
-                    )
+                    .display-cards()
                         ProjectCard(
+                            v-for="(item, index) in items"
                             :key="index"
                             :name="item.title"
                             :description="item.description"
@@ -86,11 +84,12 @@
         width: 100%;
         margin-top: 56px;
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .project-cards {
         width: calc((100% - 82px) / 3);
+        margin: 10px;
     }
     .set-vh {
         height: 100%;
