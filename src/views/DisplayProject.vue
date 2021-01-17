@@ -115,6 +115,10 @@
                 firebase.database().ref('stories/' + this.$route.params.projectID).on("value", function(snap) {
                     v.projectInfo.description = snap.val().description;
                 });
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text')
+                .orderByChild("date").on("value", function(snap) {
+                    v.projectInfo.text = Object.values(snap.val())[0].text;
+                })
             }
         },
         beforeMount() {
