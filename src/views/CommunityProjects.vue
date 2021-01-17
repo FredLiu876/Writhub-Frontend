@@ -38,7 +38,6 @@
             return {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                show: false,
                 cardInfos: [
                     [
                         {
