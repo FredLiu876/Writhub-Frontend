@@ -6,6 +6,7 @@ import NewProject from '../views/NewProject.vue'
 import CommunityProjects from '../views/CommunityProjects.vue'
 import Landing from '../views/Landing.vue'
 import DisplayProject from '../views/DisplayProject.vue'
+import InsertEdit from '../views/InsertEdit.vue'
 
 const config = {
     apiKey: 'AIzaSyA9iK8oArKlDXyLB2KokNLya-U57Y9yZo8',
@@ -41,7 +42,11 @@ const routes = [
         path: '/project/:projectName',
         name: 'DisplayProject',
         component: DisplayProject
-
+    },
+    {
+        path: '/project/:projectName/edit',
+        name: 'InsertEdit',
+        component: InsertEdit
     }
 ]
 
