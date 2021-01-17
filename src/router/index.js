@@ -44,7 +44,7 @@ const routes = [
         component: DisplayProject
     },
     {
-        path: '/project/:projectName/edit',
+        path: '/project/:projectName/:projectID/edit',
         name: 'InsertEdit',
         component: InsertEdit
     }
