@@ -18,6 +18,7 @@
                         ProjectCard(
                             v-for="(item, index) in items"
                             :key="index"
+                            :id="item.key"
                             :name="item.title"
                             :description="item.description"
                             :text="item.description"
