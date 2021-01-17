@@ -22,7 +22,7 @@
                             :id="item.key"
                             :name="item.title"
                             :description="item.description"
-                            :text="item.description"
+                            :text="item.text"
                             :coverArt="item.coverArt"
                         )
                     .bottom
@@ -54,7 +54,12 @@
                 firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
                     v.items = [];
                     snap.forEach(function(data) {
-                        v.items.push({ key: data.key, title: data.val().title, description: data.val().description, coverArt: "CoverArt.jpg"});
+                        let text = ""
+                        console.log(data.val()?.text)
+                        if (data.val()?.text) {
+                            text = Object.values(data.val().text)[0].text
+                        }
+                        v.items.push({ key: data.key, title: data.val().title, description: data.val().description, text: text, coverArt: "CoverArt.jpg"});
                     });
                 });
             },

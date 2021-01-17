@@ -53,6 +53,8 @@
     .project-cards {
         width: calc((100% - 82px) / 3);
         cursor: pointer;
+        max-height: 340px;
+        overflow: hidden;
     }
     .title {
         font-family: Roboto;

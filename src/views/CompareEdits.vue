@@ -28,8 +28,9 @@
                                         button.create-button(
                                             type="submit"
                                         ) SUBMIT CHANGES
-                        .margin67
-                        v-tabs
+                        .margin-67
+                        span.message-text(v-if="showSubmitMessage") You have successfully submitted a change. You can stay on this page to keep making changes, otherwise you are free to go!
+                        v-tabs(center-active)
                             v-tab(v-for="(proposal, index) in proposals" @click="changeTab(index + 1)") Proposal {{ index + 1 }}
                             v-tab-item(v-for="(proposal, index) in proposals")
                                 v-card.main-card
@@ -167,6 +168,16 @@
         padding-bottom: 48px;
         background: #FFFFFF;
         box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+    .message-text {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color:#00BFA6;
+        text-align: left;
     }
     .set-vh {
         height: 100%;

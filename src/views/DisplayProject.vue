@@ -18,7 +18,7 @@
                         :description="projectInfo.description"
                         :coverArt="projectInfo.coverArt"
                     )
-                    .margin67
+                    .margin-67
                     v-tabs
                         v-tab Main
                         v-tab(@click="loadOffshoots()") Side Stories

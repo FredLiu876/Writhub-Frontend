@@ -28,7 +28,8 @@
                                         button.create-button(
                                             type="submit"
                                         ) SUBMIT CHANGES
-                        .margin67
+                        .margin-67
+                        span.message-text(v-if="showSubmitMessage") You have successfully submitted an edit. You can stay on this page to keep making edits, otherwise you are free to go!
                         v-tabs
                             v-tab Edit
                             v-tab Add to Plot
@@ -67,6 +68,7 @@
                     coverArt: "CoverArt.jpg"
                 },
                 newContent: "",
+                showSubmitMessage: false,
             }
         },
         methods: {
@@ -96,7 +98,8 @@
                         date: Date.now()
                     })
                 }
-                alert("Submitted!")
+                this.showSubmitMessage = true
+                console.log(this.showSubmitMessage)
             },
             loadPage: function(v) {
                 v.projectInfo.name = this.$route.params.projectName
@@ -124,6 +127,7 @@
         top: 30%;
     }
     .margin-67 {
+        display: block;
         margin-top: 67px;
     }
     .main-card {
@@ -174,6 +178,16 @@
         line-height: 26px;
         color: rgba(9, 36, 51, 0.8);
         width: 55%;
+    }
+    .message-text {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color:#00BFA6;
+        text-align: left;
     }
     .middle-align {
         display: flex;

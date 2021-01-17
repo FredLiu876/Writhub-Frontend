@@ -61,6 +61,8 @@
                     this.signedIn = result
                     if (!result && location.pathname != "/") {
                         location.pathname = "/"
+                    } else if (result && location.pathname == "/") {
+                        location.pathname = "/home"
                     }
                 })
         }
