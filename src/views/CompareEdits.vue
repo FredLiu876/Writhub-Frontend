@@ -75,13 +75,14 @@
                 this.height = window.innerHeight
             },
             submitted: function() {
-                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.textID).set({
-                    text: this.projectInfo.text,
+                const _this = this;
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.currentID).set(null);
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.textID).update({
+                    text: _this.content,
                     date: Date.now()
                 })
-                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.currentID).remove();
                 alert("Submitted!")
-                this.$router.go(-1)
+                _this.$router.go(-1)
             },
             mergeTexts: function(t1, t2) {
                 let diff = dmp.diff_main(t1, t2)
@@ -125,7 +126,8 @@
                     if (snap !== null && snap.val() !== null && _this.proposals.length > 0) {
                         newText = Object.values(snap.val())[1].text;
                     }
-
+                    
+                    _this.currentID = Object.keys(snap.val())[1];
                     _this.content = _this.mergeTexts(oldText, newText);
                 })
             },
