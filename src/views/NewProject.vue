@@ -87,9 +87,7 @@
                 this.imageLeftOffset = sheet.getBoundingClientRect().right - 600
             },
             submitted: function() {
-                let newStory = this.writeStory(this.storyTitle, this.storyContent);
-                let storyID = newStory.key;
-                this.addPlotPoint(storyID, "Cersei Marries Night King", "Cementing Lannister-White Walker alliance.")
+                this.writeStory(this.storyTitle, this.storyContent);
                 alert("Submitted");
             },
             writeStory: function(title, description) {

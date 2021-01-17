@@ -15,31 +15,34 @@
             )
                 .initial-height
                     span.title Make an edit
-                    v-input(height="400")
+                    form(@submit.prevent="submitted")
                         textarea.textareas(
                             style="height: 400px !important;"
-                            v-model="storyContent"
+                            v-model="storyText"
                         )
-                    div(style="margin-top: 52px; display: flex; justify-content: space-between;")
+                        div(style="margin-top: 52px; display: flex; justify-content: space-between;")
                             hr
                             .buttons(style="display:flex; justify-content: space-between; width: 300px;")
                                 a.cancel-button(href="/") Cancel
                                 button.create-button(
                                     type="submit"
-                                    :disabled="storyContent==''"
-                                    :style="{ backgroundColor: storyContent=='' ? 'rgba(0, 191, 166, 0.3)' : '#00BFA6' }"
+                                    :disabled="storyText==''"
+                                    :style="{ backgroundColor: storyText=='' ? 'rgba(0, 191, 166, 0.3)' : '#00BFA6' }"
                                 ) Submit Changes
                     .bottom
 </template>
 
 <script>
+    import firebase from "firebase/app";
+    require('firebase/database')
+
     export default {
         name: "InsertEdit",
         data: () => {
             return {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                storyContent: "Story text here",
+                storyText: "Story text here",
                 cardInfos: [
                     {
                         name: "Project Name",
@@ -84,6 +87,12 @@
             getDimensions: function() {
                 this.height = window.innerHeight
                 this.width = window.innerWidth
+            },
+            submitted: function() {
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
+                    text: this.storyText,
+                    date: Date.now()
+                })
             }
         }
     }
