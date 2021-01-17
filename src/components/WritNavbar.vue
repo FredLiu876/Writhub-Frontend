@@ -5,12 +5,34 @@
             color="rgb(255, 255, 255)"
         )
             a.home-button.title(@click="navigate('/home')") WritHub
-            a.menu-buttons(@click="navigate('/new')") Start New Project
-            a.menu-buttons(@click="navigate('/community')") Community Projects
-            a.menu-buttons(@click="navigate('/lounge')") Writer's Lounge
+            a.menu-buttons(v-if="width >= 1000" @click="navigate('/new')") Start New Project
+            a.menu-buttons(v-if="width >= 1000" @click="navigate('/community')") Community Projects
+            a.menu-buttons(v-if="width >= 1000" @click="navigate('/lounge')") Writer's Lounge
             v-divider
-            google-signin-btn.sign-in-btn(v-show="!signedIn" @click="onSignIn" )
-            button.logout-btn(v-show="signedIn" @click="logout") LOG OUT
+            google-signin-btn.sign-in-btn(v-if="width >= 1000" v-show="!signedIn" @click="onSignIn" )
+            button.logout-btn(v-if="width >= 1000" v-show="signedIn" @click="logout") LOG OUT
+            v-app-bar-nav-icon(v-if="width < 1000" @click.stop="showSide=!showSide")
+        v-card(style="z-index: 20;")
+            v-navigation-drawer(
+                app
+                v-model="showSide"
+                v-resize="closeMenu"
+                temporary
+                right
+                :width="width/3 > 300 ? width/3:300"
+                overlay-color="white"
+                color="white"
+            )
+                v-list
+                    v-list-item
+                        a.menu-buttons(@click="navigate('/new')") Start New Project
+                    v-list-item
+                        a.menu-buttons(@click="navigate('/community')") Community Projects
+                    v-list-item
+                        a.menu-buttons(@click="navigate('/lounge')") Writer's Lounge
+                    v-list-item
+                        google-signin-btn.sign-in-btn(v-show="!signedIn" @click="onSignIn" style="margin-left: 40px")
+                        button.logout-btn(v-show="signedIn" @click="logout") LOG OUT
 </template>
 
 <script>
@@ -24,6 +46,12 @@
             }
         },
         methods: {
+            closeMenu: function() {
+                this.width = window.innerWidth
+                if (this.windowWidth >= 960) {
+                    this.showSide = false
+                }
+            },
             onSignIn: function() {
                 console.log("checking")
                 this.$gapi.signIn()
