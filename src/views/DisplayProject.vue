@@ -28,7 +28,7 @@
                                     span.project-text {{ projectInfo.text }}
                                     .middle-align
                                         .right-align
-                                            a.proposed-edit Proposed Edit
+                                            a.proposed-edit(@click="merge") {{ proposalAmount }} Proposed Edits
                         v-tab-item
                             v-card.main-card
                                 .display-cards
@@ -59,6 +59,7 @@
             return {
                 width: window.innerWidth,
                 height: window.innerHeight,
+                proposalAmount: 0,
                 projectInfo: {
                     name: "Project Name",
                     description: "Project Description",
@@ -110,14 +111,23 @@
                 this.width = window.innerWidth
                 this.height = window.innerHeight
             },
-            loadPage: function(v) {
-                v.projectInfo.name = this.$route.params.projectName
+            merge: function() {
+                if (this.proposalAmount > 0) {
+                    location.pathname = location.pathname + "/merge"
+                } else {
+                    alert("Must have at least one proposal to begin.")
+                }
+            },
+            loadPage: function() {
+                const _this = this;
+                _this.projectInfo.name = this.$route.params.projectName
                 firebase.database().ref('stories/' + this.$route.params.projectID).on("value", function(snap) {
-                    v.projectInfo.description = snap.val().description;
+                    _this.projectInfo.description = snap.val().description;
                 });
                 firebase.database().ref('stories/' + this.$route.params.projectID + '/text')
                 .orderByChild("date").on("value", function(snap) {
-                    v.projectInfo.text = Object.values(snap.val())[0].text;
+                    _this.proposalAmount = Object.values(snap.val()).length - 1;
+                    _this.projectInfo.text = Object.values(snap.val())[0].text;
                 })
             }
         },

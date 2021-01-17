@@ -7,6 +7,7 @@ import CommunityProjects from '../views/CommunityProjects.vue'
 import Landing from '../views/Landing.vue'
 import DisplayProject from '../views/DisplayProject.vue'
 import InsertEdit from '../views/InsertEdit.vue'
+import CompareEdits from '../views/CompareEdits.vue'
 
 const config = {
     apiKey: 'AIzaSyA9iK8oArKlDXyLB2KokNLya-U57Y9yZo8',
@@ -47,6 +48,11 @@ const routes = [
         path: '/project/:projectName/:projectID/edit',
         name: 'InsertEdit',
         component: InsertEdit
+    },
+    {
+        path: '/project/:projectName/:projectID/merge',
+        name: 'CompareEdits',
+        component: CompareEdits
     }
 ]
 
