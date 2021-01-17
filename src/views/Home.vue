@@ -15,16 +15,15 @@
                 .initial-height
                     span.title My Projects
                     .display-cards(
-                        v-for="(row, index) in items"
+                        v-for="(item, index) in items"
                         :key="index"
                     )
                         ProjectCard(
-                            v-for="(card, i) in row"
-                            :key="i"
-                            :name="card.name"
-                            :description="card.description"
-                            :text="card.text"
-                            :coverArt="card.coverArt"
+                            :key="index"
+                            :name="item.title"
+                            :description="item.description"
+                            :text="item.description"
+                            :coverArt="item.coverArt"
                         )
                     .bottom
 </template>
@@ -43,28 +42,7 @@
             return {
                 height: window.innerHeight,
                 width: window.innerWidth,
-                items: [
-                    [//I need to keep them in arrays of 3, sorry but have fun! XD
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        }
-                    ]
-                ]
+                items: []
             }
         },
         methods: {
@@ -76,14 +54,14 @@
                 firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
                     v.items = [];
                     snap.forEach(function(data) {
-                        v.items.push({ key: data.key, value: data.val().title, description: data.val().description});
+                        v.items.push({ key: data.key, title: data.val().title, description: data.val().description, coverArt: "CoverArt.jpg"});
                     });
                 });
             },
         },
         beforeMount() {
-            this.loadPage(this);
-        }
+          this.loadPage(this);
+        },
     }
 </script>
 
