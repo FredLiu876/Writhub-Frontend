@@ -13,11 +13,20 @@
                 cols="10"
             )
                 .initial-height
-                    ProjectHead2(
-                        :name="projectInfo.name"
-                        :description="projectInfo.description"
-                        :coverArt="projectInfo.coverArt"
-                    )
+                    div
+                        span.title {{ projectInfo.name }}
+                        v-img.project-image(
+                            :src="require('@/assets/' + projectInfo.coverArt)"
+                            height="200"
+                        )
+                        span.project-description Description
+                        .align-items
+                            span.description-text {{ projectInfo.description }}
+                            .middle-align
+                                .right-align
+                                    a.contribute-button(
+                                        type="submit"
+                                    ) SUBMIT CHANGES
                     .margin67
                     v-tabs
                         v-tab Edit
@@ -26,14 +35,14 @@
                             v-card.main-card
                                 v-input(height="400")
                                     textarea.textareas(
-                                        style="height: 400px !important;"
+                                        style="height: 400px !important; width: 100%;"
                                         v-model="editContent"
                                     )
                         v-tab-item
                             v-card.main-card
                                 v-input(height="400")
                                     textarea.textareas(
-                                        style="height: 400px !important;"
+                                        style="height: 400px !important; width: 100%;"
                                         v-model="newContent"
                                     )
                     .bottom
@@ -94,16 +103,57 @@
     .main-card {
         padding-top: 48px;
         padding-left: 65px;
-        padding-right: 26px;
+        padding-right: 65px;
         padding-bottom: 48px;
         background: #FFFFFF;
         box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+    .set-vh {
+        height: 100%;
+    }
+    .set-50 {
+        height: 50%;
+    }
+    .title {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 26px;
+        color: #091133;
+        text-align: left;
+    }
+    .project-image {
+        margin-top: 44px;
+        border-top: solid 4px  #00BFA6;
+    }
+    .project-description {
+        text-align: left;
+        display: block;
+        margin-top: 55px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 32px;
+        line-height: 20px;
+        color: #000000;
+    }
+    .description-text {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: rgba(9, 36, 51, 0.8);
+        width: 55%;
     }
     .middle-align {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 38%;
+        width: 35%;
     }
     .right-align {
         width: 100%;
@@ -111,44 +161,27 @@
         flex-direction: row;
         justify-content: flex-end;
     }
-    .project-text {
-        display: block;
-        width: 58%;
+    .contribute-button {
+        padding: 28px 14px;
+        background-color: #FFFFFF;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 36px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #00BFA6;
+        border: #00BFA6 solid 2px;
+    }
+    .contribute-button:hover {
+        text-decoration: underline;
     }
     .align-items {
         display: flex;
         justify-content: space-between;
         margin-top: 48px;
         text-align: left;
-    }
-    .proposed-edit {
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 32px;
-        color: rgba(0, 0, 0, 0.87);
-        padding: 42px 46px;
-        background: #FFFFFF;
-        box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12) !important;
-        border-radius: 4px;
-    }
-    .proposed-edit:hover {
-        box-shadow: 0 7px  8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12) !important;
-    }
-    .display-cards {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .project-cards {
-        width: calc((100% - 82px) / 3);
-        margin: 56px 10px 0px 10px;
-    }
-    .set-vh {
-        height: 100%;
-    }
-    .set-50 {
-        height: 50%;
     }
 </style>
