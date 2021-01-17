@@ -15,12 +15,9 @@
             )
                 .initial-height
                     span.title Community Projects
-                    .display-cards(
-                        v-for="(row, index) in cardInfos"
-                        :key="index"
-                    )
-                        ProjectCard(
-                            v-for="(card, i) in row"
+                    .display-cards
+                        ProjectCard.project-cards(
+                            v-for="(card, i) in cardInfos"
                             :key="i"
                             :name="card.name"
                             :description="card.description"
@@ -39,46 +36,42 @@
                 height: window.innerHeight,
                 width: window.innerWidth,
                 cardInfos: [
-                    [
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        }
-                    ],
-                    [
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        },
-                        {
-                            name: "Project Name",
-                            description: "Project Description",
-                            text: "Story Text. Lorem ipsum blah blah blah.",
-                            coverArt: "CoverArt.jpg"
-                        }
-                    ]
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    }
                 ]
             }
         },
@@ -113,13 +106,14 @@
     
     .display-cards {
         width: 100%;
-        margin-top: 56px;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .project-cards {
         width: calc((100% - 82px) / 3);
+        margin-top: 56px;
     }
 
     .set-vh {
