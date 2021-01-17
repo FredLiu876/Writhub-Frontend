@@ -21,7 +21,7 @@
                     .margin67
                     v-tabs
                         v-tab Main
-                        v-tab Side Stories
+                        v-tab(@click="loadOffshoots()") Side Stories
                         v-tab-item
                             v-card.main-card
                                 .align-items
@@ -66,44 +66,8 @@
                     text: "Chapter 1Lorem Ipsum Blah Blah Blah.",
                     coverArt: "CoverArt.jpg"
                 },
-                sideStories: [
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    }
-                ]
+                offshootIDs: [],
+                sideStories: [],
             }
         },
         methods: {
@@ -128,11 +92,29 @@
                 .orderByChild("date").on("value", function(snap) {
                     _this.proposalAmount = Object.values(snap.val()).length - 1;
                     _this.projectInfo.text = Object.values(snap.val())[0].text;
-                })
+                });
+            },
+            loadOffshoots: function() {
+                const _this = this;
+                _this.sideStories = [];
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/offshoots').on("value", function(snap) {
+                    _this.offshootIDs = Object.values(snap.val());
+                });
+
+                _this.offshootIDs.forEach(function(data) {
+                    firebase.database().ref('stories/' + data.offshootID).on("value", function(snap) {
+                        _this.sideStories.push({
+                            name: snap.val().title,
+                            description: snap.val().description,
+                            text: snap.val().description,
+                            coverArt: "CoverArt.jpg"
+                        });
+                    });
+                });
             }
         },
         beforeMount() {
-            this.loadPage(this)
+            this.loadPage()
         }
     }
 </script>

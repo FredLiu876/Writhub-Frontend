@@ -8,9 +8,10 @@
         span.project-description Description
         .align-items
             span.description-text {{ description }}
-            .middle-align
+            .top-align
                 .right-align
                     a.contribute-button(@click="contribute") CONTRIBUTE TO THIS PROJECT
+                    a.contribute-button(@click="clone") MAKE A SIDE STORY
 </template>
 
 <script>
@@ -29,6 +30,9 @@
         methods: {
             contribute: function() {
                 location.pathname = location.pathname + "/edit"
+            },
+            clone: function() {
+                location.pathname = location.pathname + "/clone"
             }
         }
     }
@@ -83,6 +87,7 @@
         justify-content: flex-end;
     }
     .contribute-button {
+        margin: 10px;
         padding: 28px 14px;
         background-color: #00BFA6;
         font-family: Roboto;

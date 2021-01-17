@@ -62,9 +62,10 @@
                     text: "Chapter 1Lorem Ipsum Blah Blah Blah.",
                     coverArt: "CoverArt.jpg"
                 },
+                textID: "",
+                currentID: "",
                 proposals: [],
                 content: "",
-                diff: "",
             }
         },
         methods: {
@@ -73,18 +74,20 @@
                 this.height = window.innerHeight
             },
             submitted: function() {
-                firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.textID).set({
                     text: this.projectInfo.text,
                     date: Date.now()
                 })
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text/' + this.currentID).remove();
                 alert("Submitted!")
+                this.$router.go(-1)
             },
             mergeTexts: function(t1, t2) {
-                this.diff = dmp.diff_main(t1, t2)
-                dmp.diff_cleanupSemantic(this.diff)
+                let diff = dmp.diff_main(t1, t2)
+                dmp.diff_cleanupSemantic(diff)
 
                 let combined = "";
-                this.diff.forEach(function(item, index) {
+                diff.forEach(function(item, index) {
                     if (item[0] < 0) {
                         if (index != 0) {
                             combined += "\n";
@@ -112,6 +115,7 @@
                 firebase.database().ref('stories/' + this.$route.params.projectID + '/text')
                 .orderByChild("date").on("value", function(snap) {
                     _this.proposals = new Array(Object.values(snap.val()).length - 1).fill(0);
+                    _this.textID = Object.keys(snap.val())[0];
                     let oldText = "";
                     if (snap !== null && snap.val() !== null && _this.proposals.length >= 0) {
                         oldText = Object.values(snap.val())[0].text;
@@ -138,6 +142,7 @@
                     }
 
                     _this.content = _this.mergeTexts(oldText, newText);
+                    _this.currentID = Object.keys(snap.val())[id];
                 })
             }
         },

@@ -75,10 +75,27 @@
                 this.height = window.innerHeight
             },
             submitted: function() {
-                firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
-                    text: this.projectInfo.text,
-                    date: Date.now()
-                })
+                const _this = this;
+                if (_this.$route.query.clone == 1) {
+                    _this.$router.replace({'query': null});
+                    let offshootID = firebase.database().ref('stories').push({
+                        title: _this.projectInfo.name + "[SIDE STORY]",
+                        description: _this.projectInfo.description,
+                        date: Date.now()
+                    }).key
+                    firebase.database().ref('stories/' + offshootID + '/text').push({
+                        text: _this.projectInfo.text,
+                        date: Date.now(),
+                    });
+                    firebase.database().ref('stories/' + this.$route.params.projectID + '/offshoots').push({
+                        offshootID: offshootID
+                    })
+                } else {
+                    firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
+                        text: this.projectInfo.text,
+                        date: Date.now()
+                    })
+                }
                 alert("Submitted!")
             },
             loadPage: function(v) {

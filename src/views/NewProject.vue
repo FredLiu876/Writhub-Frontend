@@ -89,6 +89,7 @@
             submitted: function() {
                 this.writeStory(this.storyTitle, this.storyContent);
                 alert("Submitted");
+                this.$router.go(-1);
             },
             writeStory: function(title, description) {
                 return firebase.database().ref('stories').push({

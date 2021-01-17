@@ -50,6 +50,12 @@ const routes = [
         component: InsertEdit
     },
     {
+        path: '/project/:projectName/:projectID/clone',
+        redirect: () => {
+            return { name: 'InsertEdit', query: { clone: 1 } }
+        },
+    },
+    {
         path: '/project/:projectName/:projectID/merge',
         name: 'CompareEdits',
         component: CompareEdits
