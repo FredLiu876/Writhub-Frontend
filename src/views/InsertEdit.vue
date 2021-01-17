@@ -94,7 +94,7 @@
                     })
                 } else {
                     firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
-                        text: this.projectInfo.text,
+                        text: this.projectInfo.text + this.newContent,
                         date: Date.now()
                     })
                 }
