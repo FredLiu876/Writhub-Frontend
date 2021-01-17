@@ -8,6 +8,7 @@ import Landing from '../views/Landing.vue'
 import DisplayProject from '../views/DisplayProject.vue'
 import InsertEdit from '../views/InsertEdit.vue'
 import CompareEdits from '../views/CompareEdits.vue'
+import Lounge from '../views/Lounge.vue'
 
 const config = {
     apiKey: 'AIzaSyA9iK8oArKlDXyLB2KokNLya-U57Y9yZo8',
@@ -59,7 +60,12 @@ const routes = [
         path: '/project/:projectName/:projectID/merge',
         name: 'CompareEdits',
         component: CompareEdits
-    }
+    },
+    {
+        path: '/lounge',
+        name: 'Lounge',
+        component: Lounge
+    },
 ]
 
 const router = new VueRouter({
