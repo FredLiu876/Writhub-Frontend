@@ -10,7 +10,7 @@
             span.description-text {{ description }}
             .middle-align
                 .right-align
-                    a.contribute-button CONTRIBUTE TO THIS PROJECT
+                    a.contribute-button(@click="contribute") CONTRIBUTE TO THIS PROJECT
 </template>
 
 <script>
@@ -25,6 +25,11 @@
             name: String,
             description: String,
             coverArt: String
+        },
+        methods: {
+            contribute: function() {
+                location.pathname = location.pathname + "/edit"
+            }
         }
     }
 </script>
