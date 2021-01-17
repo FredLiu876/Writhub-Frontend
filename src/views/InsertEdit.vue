@@ -1,11 +1,10 @@
 <template lang="pug">
     div(
-        :style="{ height: this.height + 'px', width: this.width + 'px'}"
+        :style="{width: this.width + 'px', height: this.height + 'px'}"
         v-resize="getDimensions"
     )
-        v-row.set-vh(
-        )
-            v-col.set-vh(
+        v-row.set-vh
+            v-col(
                 lg="2"
                 cols="1"
             )
@@ -14,22 +13,40 @@
                 cols="10"
             )
                 .initial-height
-                    span.title Make an edit
                     form(@submit.prevent="submitted")
-                        textarea.textareas(
-                            style="height: 400px !important;"
-                            v-model="storyText"
-                        )
-                        div(style="margin-top: 52px; display: flex; justify-content: space-between;")
-                            hr
-                            .buttons(style="display:flex; justify-content: space-between; width: 300px;")
-                                a.cancel-button(href="/") Cancel
-                                button.create-button(
-                                    type="submit"
-                                    :disabled="storyText==''"
-                                    :style="{ backgroundColor: storyText=='' ? 'rgba(0, 191, 166, 0.3)' : '#00BFA6' }"
-                                ) Submit Changes
-                    .bottom
+                        div
+                            span.title {{ projectInfo.name }}
+                            v-img.project-image(
+                                :src="require('@/assets/' + projectInfo.coverArt)"
+                                height="200"
+                            )
+                            span.project-description Description
+                            .align-items
+                                span.description-text {{ projectInfo.description }}
+                                .middle-align
+                                    .right-align
+                                        button.create-button(
+                                            type="submit"
+                                        ) SUBMIT CHANGES
+                        .margin67
+                        v-tabs
+                            v-tab Edit
+                            v-tab Add to Plot
+                            v-tab-item
+                                v-card.main-card
+                                    v-input(height="400")
+                                        textarea.textareas(
+                                            style="height: 400px !important; width: 100%;"
+                                            v-model="projectInfo.text"
+                                        )
+                            v-tab-item
+                                v-card.main-card
+                                    v-input(height="400")
+                                        textarea.textareas(
+                                            style="height: 400px !important; width: 100%;"
+                                            v-model="newContent"
+                                        )
+                        .bottom
 </template>
 
 <script>
@@ -40,60 +57,46 @@
         name: "InsertEdit",
         data: () => {
             return {
-                height: window.innerHeight,
                 width: window.innerWidth,
                 storyText: "Story text here",
-                cardInfos: [
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    },
-                    {
-                        name: "Project Name",
-                        description: "Project Description",
-                        text: "Story Text. Lorem ipsum blah blah blah.",
-                        coverArt: "CoverArt.jpg"
-                    }
-                ]
+                height: window.innerHeight,
+                projectInfo: {
+                    name: "Project Name",
+                    description: "Project Description",
+                    text: "Chapter 1Lorem Ipsum Blah Blah Blah.",
+                    coverArt: "CoverArt.jpg"
+                },
+                newContent: "",
             }
         },
         methods: {
             getDimensions: function() {
-                this.height = window.innerHeight
                 this.width = window.innerWidth
+                this.height = window.innerHeight
             },
             submitted: function() {
                 firebase.database().ref('stories/' + this.$route.params.projectID + '/text').push({
-                    text: this.storyText,
+                    text: this.projectInfo.text,
                     date: Date.now()
                 })
+                alert("Submitted!")
+            },
+            loadPage: function(v) {
+                v.projectInfo.name = this.$route.params.projectName
+                firebase.database().ref('stories/' + this.$route.params.projectID).on("value", function(snap) {
+                    v.projectInfo.description = snap.val().description;
+                });
+
+                firebase.database().ref('stories/' + this.$route.params.projectID + '/text')
+                .orderByChild("date").on("value", function(snap) {
+                    if (snap !== null && snap.val() !== null && snap.val()[0] !== null) {
+                        v.projectInfo.text = Object.values(snap.val())[0].text;
+                    }
+                })
             }
+        },
+        beforeMount() {
+            this.loadPage(this)
         }
     }
 </script>
@@ -103,7 +106,23 @@
         position: relative;
         top: 30%;
     }
-
+    .margin-67 {
+        margin-top: 67px;
+    }
+    .main-card {
+        padding-top: 48px;
+        padding-left: 65px;
+        padding-right: 65px;
+        padding-bottom: 48px;
+        background: #FFFFFF;
+        box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+    .set-vh {
+        height: 100%;
+    }
+    .set-50 {
+        height: 50%;
+    }
     .title {
         display: block;
         font-family: Roboto;
@@ -114,33 +133,46 @@
         color: #091133;
         text-align: left;
     }
-    .textareas {
-        margin-top: 84px;
-        width: 100%;
-        padding: 4px 8px;
-        background: #E6E6E6;
-        box-shadow: inset 0px 0.5px 1px rgba(0, 0, 0, 0.25);
+    .project-image {
+        margin-top: 44px;
+        border-top: solid 4px  #00BFA6;
     }
-
-    .cancel-button {
+    .project-description {
+        text-align: left;
+        display: block;
+        margin-top: 55px;
         font-family: Roboto;
         font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 36px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        text-transform: uppercase;
-        color: #5F6369;
-        border: solid 1px #5F6369;
-        text-decoration: none;
-        padding: 8px 16px;
+        font-weight: 300;
+        font-size: 32px;
+        line-height: 20px;
+        color: #000000;
     }
-    .cancel-button:hover {
-        text-decoration: underline;
+    .description-text {
+        display: block;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: rgba(9, 36, 51, 0.8);
+        width: 55%;
+    }
+    .middle-align {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 35%;
+    }
+    .right-align {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
     .create-button {
+        padding: 28px 14px;
+        background-color: #FFFFFF;
         font-family: Roboto;
         font-style: normal;
         font-weight: bold;
@@ -149,21 +181,16 @@
         display: flex;
         align-items: center;
         text-align: center;
-        text-transform: uppercase;
-        border: solid 1px rgba(0, 191, 166, 0.3);
-        text-decoration: none;
-        padding: 8px 16px;
-        background: rgba(0, 191, 166, 0.3);
-        color: #FFFFFF;
+        color: #00BFA6;
+        border: #00BFA6 solid 2px;
     }
-    .create-button:not(:disabled):hover {
+    .create-button:hover {
         text-decoration: underline;
     }
-
-    .set-vh {
-        height: 100%;
-    }
-    .set-50 {
-        height: 50%;
+    .align-items {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 48px;
+        text-align: left;
     }
 </style>

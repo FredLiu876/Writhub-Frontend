@@ -19,7 +19,7 @@
                 offset="2"
             )
                 span.title WritHub
-                span.body-text Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+                span.body-text A collaborative space for all literary works; welcome to the future of open-source storytelling. Use the community to meet community standards
                 google-signin-btn.sign-in-btn( @click="onSignIn" )
             v-col(
                 md="1"
@@ -80,16 +80,14 @@
                 console.log("checking")
                 this.$gapi.signIn()
                     .then(user => {
-                        console.log('Signed in as %s', user.name)
-                        console.log("ID: " + user.id)
-                        console.log('Image URL: ' + user.image)
-                        console.log('Email: ' + user.email)
+                        console.log(user.name)
                         location.pathname = "/home"
                     })
                     .catch(err => {
                         console.error('Not signed in: %s', err.error)
                         this.error = err.error
                     })
+                
             }
         }
     }
