@@ -92,10 +92,26 @@
                 this.$router.go(-1);
             },
             writeStory: function(title, description) {
+                /*
+                let owner = {
+                    name: "",
+                    id: ""
+                }
+                this.$gapi.currentUser()
+                    .then(user => {
+                        if (user) {
+                            owner.name = user.name
+                            owner.id = user.id
+                        } else {
+                        console.log('No user is connected.')
+                        }
+                    })
+                */
                 return firebase.database().ref('stories').push({
                     title: title,
                     description: description,
-                    date: Date.now()
+                    date: Date.now(),
+                    //owner: owner
                 });
             },
             addPlotPoint: function(storyID, title, description) {

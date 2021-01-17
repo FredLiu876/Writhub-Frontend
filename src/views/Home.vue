@@ -50,9 +50,28 @@
                 this.width = window.innerWidth;
             },
             loadPage: function(v) {
+                /*
+                let userId;
+                this.$gapi.currentUser()
+                    .then(user => {
+                        if (user) {
+                            userId = user.id
+                        } else {
+                            console.log('No user is connected.')
+                        }
+                    })
+                */
                 firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
                     v.items = [];
                     snap.forEach(function(data) {
+                        /* if (userID == data.val().owner.id) {
+                            let text = ""
+                            console.log(data.val()?.text)
+                            if (data.val()?.text) {
+                                text = Object.values(data.val().text)[0].text
+                            }
+                            v.items.push({ key: data.key, title: data.val().title, description: data.val().description, text: text, coverArt: "CoverArt.jpg"});
+                        } */
                         let text = ""
                         console.log(data.val()?.text)
                         if (data.val()?.text) {

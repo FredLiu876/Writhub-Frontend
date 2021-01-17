@@ -55,4 +55,8 @@ button:disabled {
     cursor: default;
 }
 
+span, div {
+    white-space: normal !important;
+}
+
 </style>

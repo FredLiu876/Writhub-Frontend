@@ -60,6 +60,7 @@
                             text = Object.values(data.val().text)[0].text
                         }
                         v.items.push({ key: data.key, title: data.val().title, description: data.val().description, text: text, coverArt: "CoverArt.jpg"});
+                        // v.items.push({ key: data.key, title: data.val().title, description: data.val().description, owner: data.val().owner, text: text, coverArt: "CoverArt.jpg"});
                     });
                 });
             },
