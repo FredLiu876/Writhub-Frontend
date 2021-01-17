@@ -10,11 +10,12 @@
             span.description-text {{ description }}
             .middle-align
                 .right-align
-                    btn.contribute-button CONTRIBUTE TO THIS PROJECT
+                    a.contribute-button CONTRIBUTE TO THIS PROJECT
 </template>
 
 <script>
     export default {
+        name: "ProjectHead",
         data: () => {
             return {
                 

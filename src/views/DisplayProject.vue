@@ -19,22 +19,38 @@
                         :coverArt="projectInfo.coverArt"
                     )
                     .margin67
-                    v-tabs(v-model="tab")
+                    v-tabs
                         v-tab Main
                         v-tab Side Stories
-                    v-tabs-items(v-model="tab")
-                        v-card.main-card(
-                            flat
-                        ) {{ projectInfo.text }}
+                        v-tab-item
+                            v-card.main-card
+                                .align-items
+                                    span.project-text {{ projectInfo.text }}
+                                    .middle-align
+                                        .right-align
+                                            a.proposed-edit Proposed Edit
+                        v-tab-item
+                            v-card.main-card
+                                .display-cards
+                                    ProjectCard.project-cards(
+                                        v-for="(card, i) in sideStories"
+                                        :key="i"
+                                        :name="card.name"
+                                        :description="card.description"
+                                        :text="card.text"
+                                        :coverArt="card.coverArt"
+                                    )
                     .bottom
 </template>
 
 <script>
     import ProjectHead from "@/components/ProjectHead.vue"
+    import ProjectCard from "@/components/ProjectCard.vue"
     export default {
         name: "DisplayProject",
         components: {
-            ProjectHead
+            ProjectHead,
+            ProjectCard
         },
         data: () => {
             return {
@@ -43,9 +59,47 @@
                 projectInfo: {
                     name: "Project Name",
                     description: "Project Description",
-                    text: "Lorem Ipsum Blah Blah Blah.",
+                    text: "Chapter 1Lorem Ipsum Blah Blah Blah.",
                     coverArt: "CoverArt.jpg"
-                }
+                },
+                sideStories: [
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    },
+                    {
+                        name: "Project Name",
+                        description: "Project Description",
+                        text: "Story Text. Lorem ipsum blah blah blah.",
+                        coverArt: "CoverArt.jpg"
+                    }
+                ]
             }
         },
         methods: {
@@ -65,9 +119,59 @@
     .margin-67 {
         margin-top: 67px;
     }
-    .main-text {
+    .main-card {
         padding-top: 48px;
         padding-left: 65px;
+        padding-right: 26px;
+        padding-bottom: 48px;
+        background: #FFFFFF;
+        box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+    .middle-align {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 38%;
+    }
+    .right-align {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    .project-text {
+        display: block;
+        width: 58%;
+    }
+    .align-items {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 48px;
+        text-align: left;
+    }
+    .proposed-edit {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 32px;
+        color: rgba(0, 0, 0, 0.87);
+        padding: 42px 46px;
+        background: #FFFFFF;
+        box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12) !important;
+        border-radius: 4px;
+    }
+    .proposed-edit:hover {
+        box-shadow: 0 7px  8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12) !important;
+    }
+    .display-cards {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .project-cards {
+        width: calc((100% - 82px) / 3);
+        margin: 56px 10px 0px 10px;
     }
     .set-vh {
         height: 100%;

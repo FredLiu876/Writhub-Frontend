@@ -30,7 +30,7 @@
 <script>
     import ProjectCard from "@/components/ProjectCard.vue"
     export default {
-        name: "NewProject",
+        name: "CommunityProjects",
         data: () => {
             return {
                 height: window.innerHeight,
