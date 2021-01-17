@@ -20,7 +20,7 @@
       )
         span.title My Projects
         span.ul()
-          li(v-for="item in items" :key="item.key") {{ item.value }} <br> {{ item.description }}
+          li(v-for="item in items" :key="item.key") {{ item.title }} <br> {{ item.description }}
 </template>
 
 <script>
@@ -48,7 +48,7 @@
         firebase.database().ref('stories').orderByChild("date").on("value", function(snap) {
           v.items = [];
           snap.forEach(function(data) {
-            v.items.push({ key: data.key, value: data.val().title, description: data.val().description});
+            v.items.push({ key: data.key, title: data.val().title, description: data.val().description});
           });
         });
       },
