@@ -10,7 +10,7 @@
             a.menu-buttons(@click="navigate('/lounge')") Writer's Lounge
             v-divider
             google-signin-btn.sign-in-btn(v-show="!signedIn" @click="onSignIn" )
-            button.logout-btn(v-show="signedIn" @click="logout") Logout
+            button.logout-btn(v-show="signedIn" @click="logout") LOG OUT
 </template>
 
 <script>
@@ -121,12 +121,11 @@
         font-family: Roboto;
         font-style: normal;
         font-weight: 300;
-        font-size: 24px;
+        font-size: 14px;
         line-height: 26px;
         color: #000000;
         margin-left: 40px;
         padding: 8px 16px;
-        border-radius: 4px;
         border: 1px solid #000000;
     }
     .logout-btn:hover {
