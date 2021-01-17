@@ -29,6 +29,7 @@
             }
         },
         props: {
+            id: String,
             name: String,
             description: String,
             text: String,
@@ -36,8 +37,7 @@
         },
         methods: {
             projectClicked: function() {
-                console.log('here')
-                location.pathname = '/project/' + this.name
+                location.pathname = '/project/' + this.name + '/' + this.id
             }
         }
     }

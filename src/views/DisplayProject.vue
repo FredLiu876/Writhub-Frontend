@@ -23,6 +23,7 @@
 
                     )
                     .bottom
+                    h1 TEST {{ $route.params.projectID }}
 </template>
 
 <script>
